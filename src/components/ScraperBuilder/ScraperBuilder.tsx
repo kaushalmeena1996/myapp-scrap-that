@@ -7,8 +7,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Dialog from './Dialog/Dialog';
 import Operation from './Operation/Operation';
-import * as actionTypes from '../../store/actions';
-import IStore from '../../types/store';
+import * as actionCreators from '../../actions/operation';
+import { IOperations } from '../../types/store';
 import IValidator from '../../types/validator';
 import IOperation from '../../types/operation';
 
@@ -74,40 +74,20 @@ const ScraperBuilder: React.FunctionComponent<ScraperBuilderProps> = (props: Scr
     );
 }
 
-const mapStateToProps = (state: IStore) => {
+const mapStateToProps = (state: IOperations) => {
     return {
-        operations: state.operations
+        operations: state.operations,
     }
 }
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        appendOperation: (typeId: string) => dispatch({
-            type: actionTypes.APPEND_OPERATION,
-            typeId: typeId
-        }),
-        updateOperation: (id: string, name: string, value: string, validators: IValidator[]) => dispatch({
-            type: actionTypes.UPDATE_OPERATION,
-            id: id,
-            name: name,
-            value: value,
-            validators: validators
-        }),
-        deleteOperation: (id: string) => dispatch({
-            type: actionTypes.DELETE_OPERATION,
-            id: id
-        }),
-        moveUpOperation: (id: string) => dispatch({
-            type: actionTypes.MOVE_UP_OPERATION,
-            id: id
-        }),
-        moveDownOperation: (id: string) => dispatch({
-            type: actionTypes.MOVE_DOWN_OPERATION,
-            id: id
-        }),
-        clearOperations: () => dispatch({
-            type: actionTypes.CLEAR_OPERATIONS,
-        })
+        appendOperation: (typeId: string) => dispatch(actionCreators.appendOperation(typeId)),
+        updateOperation: (id: string, name: string, value: string, validators: IValidator[]) => dispatch(actionCreators.updateOperation(id, name, value, validators)),
+        deleteOperation: (id: string) => dispatch(actionCreators.deleteOperation(id)),
+        moveUpOperation: (id: string) => dispatch(actionCreators.moveUpOperation(id)),
+        moveDownOperation: (id: string) => dispatch(actionCreators.moveDownOperation(id)),
+        clearOperations: () => dispatch(actionCreators.clearOperations())
     }
 }
 

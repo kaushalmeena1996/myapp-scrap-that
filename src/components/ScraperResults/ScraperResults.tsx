@@ -4,9 +4,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import SearchIcon from '@material-ui/icons/Search';
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions';
+import * as actionCreators from '../../actions/result';
 import IData from '../../types/data';
-import IStore from '../../types/store';
+import { IResults } from '../../types/store';
 
 
 export interface ScraperResultsProps {
@@ -39,7 +39,7 @@ const ScraperResults: React.FunctionComponent<ScraperResultsProps> = (props: Scr
     );
 }
 
-const mapStateToProps = (state: IStore) => {
+const mapStateToProps = (state: IResults) => {
     return {
         results: state.results
     }
@@ -47,13 +47,8 @@ const mapStateToProps = (state: IStore) => {
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        appendResult: (data: IData) => dispatch({
-            type: actionTypes.APPEND_RESULT,
-            data: data
-        }),
-        clearResults: () => dispatch({
-            type: actionTypes.CLEAR_RESULTS,
-        })
+        appendResult: (data: IData) => dispatch(actionCreators.appendResult(data)),
+        clearResults: () => dispatch(actionCreators.clearResults())
     }
 }
 

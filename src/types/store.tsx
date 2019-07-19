@@ -1,6 +1,9 @@
 import IOperation from './operation';
 
-export default interface IStore {
+export interface IOperations {
     operations: IOperation[];
+}
+
+export interface IResults {
     results: any[];
 }

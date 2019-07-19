@@ -1,17 +1,19 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
+import { Typography } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Dialog from '@material-ui/core/Dialog';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import { OPERATION_CATEGORIES, OPERATION_TYPES } from '../../../constants/operations'
-
-
+import CloseIcon from '@material-ui/icons/Close';
+import React from 'react';
+import { OPERATION_CATEGORIES, OPERATION_TYPES } from '../../../constants/operations';
 import classes from './Dialog.module.css';
+
 
 export interface OperationDialogProps {
     open: boolean;
@@ -19,20 +21,35 @@ export interface OperationDialogProps {
 }
 
 const OperationDialog = (props: OperationDialogProps) => {
-    const [selectedTypeId, setSelectedTypeId] = React.useState<string>('');
-
-    function handleListItemClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string): void {
-        setSelectedTypeId(id);
-    }
-
     return (
         <Dialog
             open={props.open}
             maxWidth="sm"
             scroll="paper"
+            onClick={() => props.closeDialog('')}
             fullWidth
         >
-            <DialogTitle>Select Operation</DialogTitle>
+            <DialogTitle>
+                <Grid
+                    container
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
+                >
+                    <Grid item>
+                        <Typography variant="h6">Select Operation</Typography>
+                    </Grid>
+                    <Grid item>
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            onClick={() => props.closeDialog('')}
+                            aria-label="Close-Button">
+                            <CloseIcon />
+                        </IconButton>
+                    </Grid>
+                </Grid>
+            </DialogTitle>
             <DialogContent>
                 {OPERATION_CATEGORIES.map((category) => (
                     <List
@@ -47,8 +64,7 @@ const OperationDialog = (props: OperationDialogProps) => {
                             .map((type) => (
                                 <ListItem
                                     key={type.typeId}
-                                    selected={selectedTypeId === type.typeId}
-                                    onClick={(event) => handleListItemClick(event, type.typeId)}
+                                    onClick={() => props.closeDialog(type.typeId)}
                                     button
                                 >
                                     <ListItemText
@@ -59,21 +75,7 @@ const OperationDialog = (props: OperationDialogProps) => {
                     </List>
                 ))}
             </DialogContent>
-            <DialogActions>
-                <Button
-                    className={classes.button}
-                    onClick={() => props.closeDialog('')}
-                    color="primary">
-                    Cancel
-          </Button>
-                <Button
-                    className={classes.button}
-                    onClick={() => props.closeDialog(selectedTypeId)}
-                    disabled={selectedTypeId === ''}
-                    color="primary">
-                    Add
-          </Button>
-            </DialogActions>
+            <DialogActions></DialogActions>
         </Dialog>
     );
 }
