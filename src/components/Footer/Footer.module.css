@@ -1,4 +1,7 @@
 .root {
     background-color: #fff;
     padding: 12px;
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 24px);
 }

@@ -10,7 +10,7 @@ import ScraperBuilder from '../../containers/Scraper/Scraper'
 import About from '../About/About'
 
 
-const Page: React.FunctionComponent = () => {
+const Page: React.FunctionComponent = ():JSX.Element => {
     return (
         <main>
             <Box my={4}>

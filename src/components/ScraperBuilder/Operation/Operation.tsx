@@ -1,26 +1,21 @@
-import React from 'react';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import Box from '@material-ui/core/Box';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import classes from './Operation.module.css';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import EditIcon from '@material-ui/icons/Edit';
-import ClearIcon from '@material-ui/icons/Clear';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-
-
-import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
-
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
+import ClearIcon from '@material-ui/icons/Clear';
+import EditIcon from '@material-ui/icons/Edit';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import React from 'react';
+import { OPERATION_INPUTS } from '../../../constants/operations';
+import classes from './Operation.module.css';
 
 export interface OperationProps {
     operation: any;
-    updateOperation: (id: string, key: string, value: string) => void;
+    updateOperation: (id: string, name: string, value: string, validators: any[]) => void;
     deleteOperation: (id: string) => void;
     moveUpOperation: (id: string) => void;
     moveDownOperation: (id: string) => void;
@@ -31,12 +26,6 @@ const Operation: React.FunctionComponent<OperationProps> = (props: OperationProp
 
     function handleExpandClick() {
         setExpanded(!expanded);
-    }
-
-    function getOperationSubheader() {
-        return props.operation.outputFormat.replace(/%\w+%/g, function (match: string) {
-            return props.operation.outputs[match.slice(1, -1)] || 'undefined';
-        });
     }
 
     return (
@@ -63,6 +52,7 @@ const Operation: React.FunctionComponent<OperationProps> = (props: OperationProp
                             aria-expanded={expanded}
                             aria-label="Edit-Button"
                             title="Edit operation."
+                            color="primary"
                         >
                             <EditIcon />
                         </IconButton>
@@ -71,37 +61,44 @@ const Operation: React.FunctionComponent<OperationProps> = (props: OperationProp
                             aria-expanded={expanded}
                             aria-label="Delete-Button"
                             title="Delete operation."
+                            color="secondary"
                         >
                             <ClearIcon />
                         </IconButton>
                     </React.Fragment>
                 }
                 title={props.operation.typeName}
-                subheader={getOperationSubheader()}
+                subheader={props.operation.heading}
             />
             <Collapse in={expanded} timeout="auto">
                 <CardContent>
-                    <Box
-                        display="flex"
-                        flexWrap="wrap"
-                        justifyContent="space-between"
-                    >
+                    <Grid
+                        container
+                        direction="row"
+                        justify="space-between"
+                        alignItems="flex-start"
+                        spacing={3}>
                         {
-                            props.operation.inputs.map((item: any, index: number) => (
-                                <Box
-                                    key={`${props.operation.id}-input-${index}`}
-                                    minWidth={item.width}
-                                >
-                                    <TextField
-                                        label={item.label}
-                                        helperText={item.helperText}
-                                        onChange={(event) => props.updateOperation(props.operation.id, item.name, event.target.value)}
-                                        fullWidth
-                                    />
-                                </Box>
-                            ))
+                            OPERATION_INPUTS
+                                .filter((item) => props.operation.inputs.includes(item.inputId))
+                                .map((item: any, index: number) => (
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        md={item.width}
+                                        key={`${props.operation.id}-input-${index}`}
+                                    >
+                                        <TextField
+                                            label={item.label}
+                                            helperText={props.operation.errors[item.name]}
+                                            onChange={(event) => props.updateOperation(props.operation.id, item.name, event.target.value, item.validators)}
+                                            error={props.operation.errors[item.name] ? true : false}
+                                            fullWidth
+                                        />
+                                    </Grid>
+                                ))
                         }
-                    </Box>
+                    </Grid>
                 </CardContent>
             </Collapse>
         </Card>

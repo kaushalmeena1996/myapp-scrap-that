@@ -1,15 +1,14 @@
 import React from 'react';
-import { BrowserRouter } from "react-router-dom";
 import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 import Page from '../../components/Page/Page';
 
-const App: React.FunctionComponent = () => {
+const App: React.FunctionComponent = (): JSX.Element => {
   return (
     <React.Fragment>
-      <BrowserRouter>
-        <Header />
-        <Page />
-      </BrowserRouter>
+      <Header />
+      <Page />
+      <Footer />
     </React.Fragment>
   );
 }

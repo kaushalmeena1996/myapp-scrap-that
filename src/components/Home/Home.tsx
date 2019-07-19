@@ -3,6 +3,8 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { Link } from "react-router-dom";
+
 
 import ScrapperSvg from '../../assets/svg/scraper.svg'
 
@@ -17,10 +19,10 @@ const Home: React.FunctionComponent = () => {
                 </Grid>
                 <Grid item xs={8} sm={6}>
                     <Typography variant="h2" gutterBottom>ScrapThat!</Typography>
-                    <Typography variant="h5" gutterBottom>
-                        Makes web scrapping easier than ever.
-                        </Typography>
-                    <Button variant="outlined" color="primary">Get Started</Button>
+                    <Typography variant="h5" gutterBottom>Makes web scrapping easier than ever.</Typography>
+                    <Link to="/scrap" className="no-link-decoration">
+                        <Button variant="outlined" color="primary">Get Started</Button>
+                    </Link>
                 </Grid>
             </Grid>
         </div>

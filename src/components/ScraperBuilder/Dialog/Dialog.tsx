@@ -8,20 +8,20 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import { OPERATION_CATEGORIES, OPERATION_TYPES } from '../../../constants/Operation'
+import { OPERATION_CATEGORIES, OPERATION_TYPES } from '../../../constants/operations'
 
 
 import classes from './Dialog.module.css';
 
 export interface OperationDialogProps {
     open: boolean;
-    appendOperation: (typeId: string) => void;
+    closeDialog: (typeId: string) => void;
 }
 
 const OperationDialog = (props: OperationDialogProps) => {
-    const [selectedTypeId, setSelectedTypeId] = React.useState('');
+    const [selectedTypeId, setSelectedTypeId] = React.useState<string>('');
 
-    function listItemHandler(event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string): void {
+    function handleListItemClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string): void {
         setSelectedTypeId(id);
     }
 
@@ -48,7 +48,7 @@ const OperationDialog = (props: OperationDialogProps) => {
                                 <ListItem
                                     key={type.typeId}
                                     selected={selectedTypeId === type.typeId}
-                                    onClick={(event) => listItemHandler(event, type.typeId)}
+                                    onClick={(event) => handleListItemClick(event, type.typeId)}
                                     button
                                 >
                                     <ListItemText
@@ -62,13 +62,13 @@ const OperationDialog = (props: OperationDialogProps) => {
             <DialogActions>
                 <Button
                     className={classes.button}
-                    onClick={() => props.appendOperation('')}
+                    onClick={() => props.closeDialog('')}
                     color="primary">
                     Cancel
           </Button>
                 <Button
                     className={classes.button}
-                    onClick={() => props.appendOperation(selectedTypeId)}
+                    onClick={() => props.closeDialog(selectedTypeId)}
                     disabled={selectedTypeId === ''}
                     color="primary">
                     Add

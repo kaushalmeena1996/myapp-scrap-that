@@ -20,13 +20,7 @@ export const OPERATION_TYPES = [
         typeName: 'OPEN',
         description: 'Open url for web scrapping.',
         outputFormat: '%url%',
-        inputs: [{
-            name: 'url',
-            label: 'URL',
-            helperText: '',
-            type: 'text',
-            width: '100%'
-        }]
+        inputs: ['inp001']
     },
     {
         typeId: 'opr002',
@@ -34,20 +28,7 @@ export const OPERATION_TYPES = [
         typeName: 'EXTRACT',
         description: 'Scraps specified elements from opened page.',
         outputFormat: '%name% [%selector%]',
-        inputs: [{
-            name: 'name',
-            label: 'Element name',
-            helperText: '',
-            type: 'text',
-            width: '48%'
-        },
-        {
-            name: 'selector',
-            label: 'Selector',
-            helperText: '',
-            type: 'text',
-            width: '45%'
-        }]
+        inputs: ['inp002', 'inp003']
     },
     {
         typeId: 'opr003',
@@ -74,3 +55,42 @@ export const OPERATION_TYPES = [
         description: 'Scraps specified elements from opened page.'
     }
 ];
+
+export const OPERATION_INPUTS = [{
+    inputId: 'inp001',
+    name: 'url',
+    label: 'URL',
+    type: 'text',
+    width: 12,
+    validators: [{
+        name: 'validURL',
+        regex: "^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$",
+        message: 'Please enter valid URL.'
+    }]
+},
+{
+    inputId: 'inp002',
+    name: 'name',
+    label: 'Element name',
+    helperText: '',
+    type: 'text',
+    width: 6,
+    validators: [{
+        name: 'validElementName',
+        regex: ".+",
+        message: 'Please enter valid element name.'
+    }]
+},
+{
+    inputId: 'inp003',
+    name: 'selector',
+    label: 'Selector',
+    helperText: '',
+    type: 'text',
+    width: 6,
+    validators: [{
+        name: 'validSelector',
+        regex: ".+",
+        message: 'Please enter valid selector.'
+    }]
+}];
