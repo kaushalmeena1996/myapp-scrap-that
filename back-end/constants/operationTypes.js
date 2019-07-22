@@ -1,0 +1,10 @@
+var OPERATION_TYPES = {
+    OPEN: 'OPEN',
+    EXTRACT: 'EXTRACT',
+    IF: 'IF',
+    IF_ELSE: 'IF_ELSE',
+    WHILE: 'WHILE',
+    FOR: 'FOR'
+}
+
+module.exports = OPERATION_TYPES;

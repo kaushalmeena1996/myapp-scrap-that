@@ -1,0 +1,16 @@
+.root {
+    width: 100%;
+    background-color: #fff;
+    position: 'relative';
+    overflow: 'auto';
+}
+
+.li {
+    background-color: 'inherit';
+
+}
+
+.ul {
+    background-color: 'inherit';
+    padding: 0;
+}
