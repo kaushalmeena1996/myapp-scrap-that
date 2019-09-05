@@ -7,30 +7,19 @@ import BuildIcon from '@material-ui/icons/Build';
 import SettingsIcon from '@material-ui/icons/Settings';
 import React from 'react';
 import Builder from '../../components/Builder/Builder';
-import Result from '../../components/Result/Result';
-import Setting from '../../components/Setting/Setting';
-import classes from './Scraper.module.css';
+import Configuration from '../../components/Config/Config';
+import Output from '../../components/Output/Output';
+import classes from './Scrap.module.css';
 
-class Scraper extends React.Component {
+
+class Scrap extends React.Component {
     state = {
-        tabValue: 1,
+        tabValue: 1
     }
 
     handleTabChange(event: React.ChangeEvent<{}>, value: number) {
         this.setState({
             tabValue: value
-        });
-    }
-
-    handleIFrameShow() {
-        this.setState({
-            iframeVisible: true
-        });
-    }
-
-    handleIFrameHide() {
-        this.setState({
-            iframeVisible: false
         });
     }
 
@@ -45,19 +34,19 @@ class Scraper extends React.Component {
                         onChange={this.handleTabChange.bind(this)}
                         centered
                     >
-                        <Tab label="Settings" icon={<SettingsIcon />} />
+                        <Tab label="Config" icon={<SettingsIcon />} />
                         <Tab label="Builder" icon={<BuildIcon />} />
-                        <Tab label="Results" icon={<AssignmentIcon />} />
+                        <Tab label="Output" icon={<AssignmentIcon />} />
                     </Tabs>
                 </Paper>
                 <Box p={2}>
-                    <Setting hidden={this.state.tabValue !== 0} />
+                    <Configuration hidden={this.state.tabValue !== 0} />
                     <Builder hidden={this.state.tabValue !== 1} />
-                    <Result hidden={this.state.tabValue !== 2} />
+                    <Output hidden={this.state.tabValue !== 2} />
                 </Box>
             </React.Fragment>
         );
     }
 }
 
-export default Scraper;
+export default Scrap;

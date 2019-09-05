@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cors = require('cors')
 
 var indexRouter = require('./routes/index');
-var scraperRouter = require('./routes/scraper');
+var scraperRouter = require('./routes/scrap');
 
 var app = express();
 

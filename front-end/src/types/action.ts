@@ -1,5 +1,5 @@
 import IValidator from './validator';
-import ITable from './result';
+import IResult from './result';
 
 export default interface IAction {
     type: string;
@@ -8,7 +8,7 @@ export default interface IAction {
         type: string;
         name: string;
         value: string;
-        table: ITable;
+        result: IResult;
         validators: IValidator[];
     }
 }

@@ -1,9 +1,8 @@
-import React from 'react';
-
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-
+import React from 'react';
 import classes from './About.module.css';
+
 
 const About: React.FunctionComponent = (): JSX.Element => {
   return (

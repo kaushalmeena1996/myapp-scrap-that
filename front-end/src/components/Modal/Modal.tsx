@@ -9,12 +9,14 @@ import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
 
 
-export interface ErrorProps {
+export interface IModalProps {
     open: boolean;
-    closeError: () => void;
+    title: string;
+    children: any;
+    closeModal: () => void;
 }
 
-const Error = (props: ErrorProps): JSX.Element => {
+const Modal = (props: IModalProps): JSX.Element => {
     return (
         <Dialog
             open={props.open}
@@ -30,13 +32,13 @@ const Error = (props: ErrorProps): JSX.Element => {
                     alignItems="center"
                 >
                     <Grid item>
-                        <Typography variant="h6">Error</Typography>
+                        <Typography variant="h6">{props.title}</Typography>
                     </Grid>
                     <Grid item>
                         <IconButton
                             edge="start"
                             color="inherit"
-                            onClick={() => props.closeError()}
+                            onClick={props.closeModal}
                             aria-label="Close-Button">
                             <CloseIcon />
                         </IconButton>
@@ -44,11 +46,11 @@ const Error = (props: ErrorProps): JSX.Element => {
                 </Grid>
             </DialogTitle>
             <DialogContent>
-                Error occured while scrapping!
+                {props.children}
             </DialogContent>
             <DialogActions></DialogActions>
         </Dialog>
     );
 }
 
-export default Error;
+export default Modal;

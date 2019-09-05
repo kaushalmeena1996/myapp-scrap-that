@@ -1,16 +1,13 @@
-import React from 'react';
-
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import React from 'react';
 import { Link } from "react-router-dom";
-
-
-import ScrapperSvg from '../../assets/svg/scraper.svg'
-
+import ScrapperSvg from '../../assets/svg/scrap.svg';
 import classes from './Home.module.css';
 
-const Home: React.FunctionComponent = () => {
+
+const Home: React.FunctionComponent = (): JSX.Element => {
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>

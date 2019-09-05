@@ -3,7 +3,7 @@ import IValidator from '../types/validator';
 
 export const appendOperation = (type: string) => {
     return {
-        type: actionTypes.APPEND_OPERATION,
+        type: actionTypes.OPERATION_APPEND,
         params: {
             type: type
         }
@@ -12,7 +12,7 @@ export const appendOperation = (type: string) => {
 
 export const updateOperation = (index: number, name: string, value: string, validators: IValidator[]) => {
     return {
-        type: actionTypes.UPDATE_OPERATION,
+        type: actionTypes.OPERATION_UPDATE,
         params: {
             index: index,
             name: name,
@@ -24,7 +24,7 @@ export const updateOperation = (index: number, name: string, value: string, vali
 
 export const deleteOperation = (index: number) => {
     return {
-        type: actionTypes.DELETE_OPERATION,
+        type: actionTypes.OPERATION_DELETE,
         params: {
             index: index
         }
@@ -33,7 +33,7 @@ export const deleteOperation = (index: number) => {
 
 export const moveUpOperation = (index: number) => {
     return {
-        type: actionTypes.MOVE_UP_OPERATION,
+        type: actionTypes.OPERATION_MOVE_UP,
         params: {
             index: index
         }
@@ -42,7 +42,7 @@ export const moveUpOperation = (index: number) => {
 
 export const moveDownOperation = (index: number) => {
     return {
-        type: actionTypes.MOVE_DOWN_OPERATION,
+        type: actionTypes.OPERATION_MOVE_DOWN,
         params: {
             index: index
         }
@@ -51,6 +51,6 @@ export const moveDownOperation = (index: number) => {
 
 export const clearOperations = () => {
     return {
-        type: actionTypes.CLEAR_OPERATIONS
+        type: actionTypes.OPERATION_CLEAR
     }
 };

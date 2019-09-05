@@ -1,23 +1,22 @@
-import * as actionTypes from '../constants/actionTypes';
-import IResult from '../types/result';
 import axios from 'axios';
 import { Dispatch } from 'react';
+import * as actionTypes from '../constants/actionTypes';
+import IResult from '../types/result';
 
 export const appendResult = (result: IResult) => {
     return {
-        type: actionTypes.APPEND_RESULT,
+        type: actionTypes.RESULT_APPEND,
         params: {
             result: result
         }
     };
 };
 
-
 export const loadResults = () => {
     return (dispatch: Dispatch<any>, getState: any) => {
         dispatch(showLoader());
 
-        axios.post('http://localhost:4000/api/scraper', getState().operations.tasks)
+        axios.post('http://localhost:4000/api/scrap', getState().builder.operations)
             .then(response => {
                 dispatch(hideLoader());
                 dispatch(appendResult(response.data.result))
@@ -30,32 +29,41 @@ export const loadResults = () => {
     };
 };
 
+export const deleteResult = (index: number) => {
+    return {
+        type: actionTypes.RESULT_DELETE,
+        params: {
+            index: index
+        }
+    };
+};
+
 export const clearResults = () => {
     return {
-        type: actionTypes.CLEAR_RESULTS
+        type: actionTypes.RESULT_CLEAR
     };
 };
 
 export const showLoader = () => {
     return {
-        type: actionTypes.SHOW_LOADER
+        type: actionTypes.RESULT_SHOW_LOADER
     };
 };
 
 export const hideLoader = () => {
     return {
-        type: actionTypes.HIDE_LOADER
+        type: actionTypes.RESULT_HIDE_LOADER
     };
 };
 
 export const showError = () => {
     return {
-        type: actionTypes.SHOW_ERROR
+        type: actionTypes.RESULT_SHOW_ERROR
     };
 };
 
 export const hideError = () => {
     return {
-        type: actionTypes.HIDE_ERROR
+        type: actionTypes.RESULT_HIDE_ERROR
     };
 };

@@ -1,20 +1,26 @@
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
-import Selector from './Selector/Selector';
-import Operation from './Operation/Operation';
 import * as actionCreators from '../../actions/operation';
-import IStore, { IOperations } from '../../types/store';
+import { OPERATION_CATEGORIES, OPERATION_TYPES } from '../../constants/operationData';
+import IStore, { IBuilder } from '../../types/store';
 import IValidator from '../../types/validator';
+import Modal from '../Modal/Modal';
+import classes from './Builder.module.css';
+import Operation from './Operation/Operation';
 
 
-export interface BuilderProps {
+export interface IBuilderProps {
     hidden: boolean;
-    operations: IOperations;
+    builder: IBuilder;
     appendOperation: (type: string) => void;
     updateOperation: (index: number, name: string, value: string, validators: IValidator[]) => void;
     deleteOperation: (index: number) => void;
@@ -23,23 +29,51 @@ export interface BuilderProps {
     clearOperations: () => void;
 }
 
-const Builder: React.FunctionComponent<BuilderProps> = (props: BuilderProps): JSX.Element => {
+const Builder: React.FunctionComponent<IBuilderProps> = (props: IBuilderProps): JSX.Element => {
     const [open, setOpen] = React.useState<boolean>(false);
 
-    function handleSelectorOpen() {
+    function handleModalOpen() {
         setOpen(true);
     }
 
-    function handleSelectorClose(type: string) {
-        props.appendOperation(type)
+    function handleModalClose() {
         setOpen(false);
     }
 
     return (
         <div hidden={props.hidden}>
+            <Modal
+                open={open}
+                title="Select Operation"
+                closeModal={handleModalClose}
+            >
+                {OPERATION_CATEGORIES.map((category, cIndex) => (
+                    <List
+                        key={`category-${cIndex}`}
+                        className={classes.root}
+                    >
+                        <ListSubheader component="div">
+                            {category}
+                        </ListSubheader>
+                        {OPERATION_TYPES
+                            .filter(item => item.category === category)
+                            .map((item, iIndex) => (
+                                <ListItem
+                                    key={`category-${cIndex}-operation-${iIndex}`}
+                                    onClick={() => props.appendOperation(item.type)}
+                                    button
+                                >
+                                    <ListItemText
+                                        primary={item.type}
+                                        secondary={item.description} />
+                                </ListItem>
+                            ))}
+                    </List>
+                ))}
+            </Modal>
             <Box display="flex" justifyContent="flex-end" pb={2}>
                 <Box mr={0.5}>
-                    <Button title="Open operation selector." variant="outlined" color="primary" onClick={handleSelectorOpen}>
+                    <Button title="Open operation selector." variant="outlined" color="primary" onClick={handleModalOpen}>
                         <AddIcon />
                     </Button>
                 </Box>
@@ -49,15 +83,11 @@ const Builder: React.FunctionComponent<BuilderProps> = (props: BuilderProps): JS
                     </Button>
                 </Box>
             </Box>
-            <Selector
-                open={open}
-                closeSelector={handleSelectorClose}
-            />
             <Box>
                 {
-                    (props.operations.tasks.length > 0) ?
-                        (props.operations.tasks.map((item, index) => (
-                            < Operation
+                    (props.builder.operations.length > 0) ?
+                        (props.builder.operations.map((item, index) => (
+                            <Operation
                                 key={`operation-${index}`}
                                 index={index}
                                 operation={item}
@@ -76,7 +106,7 @@ const Builder: React.FunctionComponent<BuilderProps> = (props: BuilderProps): JS
 
 const mapStateToProps = (state: IStore) => {
     return {
-        operations: state.operations,
+        builder: state.builder
     }
 }
 

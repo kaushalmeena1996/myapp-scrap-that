@@ -6,14 +6,14 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import App from './containers/App/App';
 import './index.css';
-import operationReducer from './reducers/operation';
-import resultReducer from './reducers/result';
+import builder from './reducers/builder';
+import output from './reducers/output';
 import * as serviceWorker from './serviceWorker';
 
 
 const rootReducer = combineReducers({
-    operations: operationReducer,
-    results: resultReducer
+    builder: builder,
+    output: output
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
