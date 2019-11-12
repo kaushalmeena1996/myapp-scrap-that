@@ -1,5 +1,6 @@
 import IOperation from './operation';
 import IResult from './result';
+import IVariable from './variable';
 
 export default interface IStore {
     builder: IBuilder;
@@ -7,11 +8,12 @@ export default interface IStore {
 }
 
 export interface IBuilder {
-    operations: IOperation[]
+    operations: IOperation[];
+    variables: IVariable[];
 }
 
 export interface IOutput {
-    results: IResult[]
+    results: IResult[];
     loader: boolean;
     error: boolean;
 }

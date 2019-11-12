@@ -1,56 +1,65 @@
-import * as actionTypes from '../constants/actionTypes';
-import IValidator from '../types/validator';
+import { ACTION_TYPES } from "../constants/types";
+import IOperation from "../types/operation";
 
-export const appendOperation = (type: string) => {
-    return {
-        type: actionTypes.OPERATION_APPEND,
-        params: {
-            type: type
-        }
+export const appendOperation = (path: string, operation: IOperation) => {
+  return {
+    type: ACTION_TYPES.OPERATION_APPEND,
+    params: {
+      path: path,
+      operation: operation
     }
+  };
 };
 
-export const updateOperation = (index: number, name: string, value: string, validators: IValidator[]) => {
-    return {
-        type: actionTypes.OPERATION_UPDATE,
-        params: {
-            index: index,
-            name: name,
-            value: value,
-            validators: validators
-        }
+export const updateOperation = (
+  path: string,
+  value: string,
+  mode: string,
+  variable: boolean
+) => {
+  return {
+    type: ACTION_TYPES.OPERATION_UPDATE,
+    params: {
+      path: path,
+      value: value,
+      mode: mode,
+      variable: variable
     }
+  };
 };
 
-export const deleteOperation = (index: number) => {
-    return {
-        type: actionTypes.OPERATION_DELETE,
-        params: {
-            index: index
-        }
+export const deleteOperation = (path: string) => {
+  return {
+    type: ACTION_TYPES.OPERATION_DELETE,
+    params: {
+      path: path,
     }
+  };
 };
 
-export const moveUpOperation = (index: number) => {
-    return {
-        type: actionTypes.OPERATION_MOVE_UP,
-        params: {
-            index: index
-        }
+export const moveUpOperation = (path: string) => {
+  return {
+    type: ACTION_TYPES.OPERATION_MOVE_UP,
+    params: {
+      path: path,
     }
+  };
 };
 
-export const moveDownOperation = (index: number) => {
-    return {
-        type: actionTypes.OPERATION_MOVE_DOWN,
-        params: {
-            index: index
-        }
+export const moveDownOperation = (path: string) => {
+  return {
+    type: ACTION_TYPES.OPERATION_MOVE_DOWN,
+    params: {
+      path: path,
     }
+  };
 };
 
-export const clearOperations = () => {
-    return {
-        type: actionTypes.OPERATION_CLEAR
+export const clearOperations = (path: string) => {
+  return {
+    type: ACTION_TYPES.OPERATION_CLEAR,
+    params: {
+      path: path,
     }
+  };
 };

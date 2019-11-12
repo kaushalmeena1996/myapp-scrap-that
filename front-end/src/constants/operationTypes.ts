@@ -1,9 +1,0 @@
-export const OPEN = 'OPEN';
-export const EXTRACT = 'EXTRACT';
-export const CLICK = 'CLICK';
-export const TYPE = 'TYPE';
-export const SET = 'SET';
-export const IF = 'IF';
-export const IF_ELSE = 'IF_ELSE';
-export const WHILE = 'WHILE';
-export const FOR = 'FOR';

@@ -1,14 +1,15 @@
-import IValidator from './validator';
-import IResult from './result';
+import IResult from "./result";
+import IOperation from "./operation";
 
 export default interface IAction {
-    type: string;
-    params: {
-        index: number;
-        type: string;
-        name: string;
-        value: string;
-        result: IResult;
-        validators: IValidator[];
-    }
+  type: string;
+  params: {
+    path: string;
+    operation: IOperation;
+    mode: string;
+    variable: boolean;
+    value: string;
+    update: string;
+    result: IResult;
+  };
 }

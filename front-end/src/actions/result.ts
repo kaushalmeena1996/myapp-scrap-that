@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { Dispatch } from 'react';
-import * as actionTypes from '../constants/actionTypes';
+import { ACTION_TYPES } from '../constants/types';
 import IResult from '../types/result';
 
 export const appendResult = (result: IResult) => {
     return {
-        type: actionTypes.RESULT_APPEND,
+        type: ACTION_TYPES.RESULT_APPEND,
         params: {
             result: result
         }
@@ -15,7 +15,6 @@ export const appendResult = (result: IResult) => {
 export const loadResults = () => {
     return (dispatch: Dispatch<any>, getState: any) => {
         dispatch(showLoader());
-
         axios.post('http://localhost:4000/api/scrap', getState().builder.operations)
             .then(response => {
                 dispatch(hideLoader());
@@ -29,41 +28,41 @@ export const loadResults = () => {
     };
 };
 
-export const deleteResult = (index: number) => {
+export const deleteResult = (resultIndex: number) => {
     return {
-        type: actionTypes.RESULT_DELETE,
+        type: ACTION_TYPES.RESULT_DELETE,
         params: {
-            index: index
+            resultIndex: resultIndex
         }
     };
 };
 
 export const clearResults = () => {
     return {
-        type: actionTypes.RESULT_CLEAR
+        type: ACTION_TYPES.RESULT_CLEAR
     };
 };
 
 export const showLoader = () => {
     return {
-        type: actionTypes.RESULT_SHOW_LOADER
+        type: ACTION_TYPES.RESULT_SHOW_LOADER
     };
 };
 
 export const hideLoader = () => {
     return {
-        type: actionTypes.RESULT_HIDE_LOADER
+        type: ACTION_TYPES.RESULT_HIDE_LOADER
     };
 };
 
 export const showError = () => {
     return {
-        type: actionTypes.RESULT_SHOW_ERROR
+        type: ACTION_TYPES.RESULT_SHOW_ERROR
     };
 };
 
 export const hideError = () => {
     return {
-        type: actionTypes.RESULT_HIDE_ERROR
+        type: ACTION_TYPES.RESULT_HIDE_ERROR
     };
 };

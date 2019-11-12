@@ -1,5 +1,5 @@
-import update from 'immutability-helper';
-import * as actionTypes from '../constants/actionTypes';
+import { set, push, del } from 'object-path-immutable';
+import { ACTION_TYPES } from '../constants/types';
 import IAction from '../types/action';
 import { IOutput } from '../types/store';
 
@@ -15,59 +15,42 @@ const initialState: IOutput = {
 
 const reducer = (state = initialState, action: IAction) => {
     switch (action.type) {
-        case actionTypes.RESULT_APPEND:
-            state = update(state, {
-                results: {
-                    $push: [action.params.result]
-                }
-            });
-            break;
-        case actionTypes.RESULT_CLEAR:
-            state = update(state, {
-                results: {
-                    $set: []
-                }
-            });
-            break;
-        case actionTypes.RESULT_DELETE:
-            if (action.params.index !== -1) {
-                state = update(state, {
-                    results: {
-                        $splice: [[action.params.index, 1]]
-                    }
-                });
+        case ACTION_TYPES.RESULT_APPEND:
+            if (action.params.path && action.params.result) {
+                state = push(state, action.params.path, action.params.result);
             }
             break;
-        case actionTypes.RESULT_SHOW_LOADER:
-            state = update(state, {
-                loader: {
-                    $set: true
-                }
-            });
+        case ACTION_TYPES.RESULT_CLEAR:
+            if (action.params.path) {
+                state = set(state, action.params.path, []);
+            }
             break;
-        case actionTypes.RESULT_HIDE_LOADER:
-            state = update(state, {
-                loader: {
-                    $set: false
-                }
-            });
+        case ACTION_TYPES.RESULT_DELETE:
+            if (action.params.path) {
+                state = del(state, action.params.path);
+            }
             break;
-        case actionTypes.RESULT_SHOW_ERROR:
-            state = update(state, {
-                error: {
-                    $set: true
-                }
-            });
+        case ACTION_TYPES.RESULT_SHOW_LOADER:
+            if (action.params.path) {
+                state = set(state, action.params.path, true);
+            }
             break;
-        case actionTypes.RESULT_HIDE_ERROR:
-            state = update(state, {
-                error: {
-                    $set: false
-                }
-            });
+        case ACTION_TYPES.RESULT_HIDE_LOADER:
+            if (action.params.path) {
+                state = set(state, action.params.path, false);
+            }
+            break;
+        case ACTION_TYPES.RESULT_SHOW_ERROR:
+            if (action.params.path) {
+                state = set(state, action.params.path, true);
+            }
+            break;
+        case ACTION_TYPES.RESULT_HIDE_ERROR:
+            if (action.params.path) {
+                state = set(state, action.params.path, false);
+            }
             break;
     }
-
     return state;
 };
 
